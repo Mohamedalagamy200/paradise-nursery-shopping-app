@@ -23,6 +23,24 @@ const plantsArray = [
           'https://images.unsplash.com/photo-1459156212016-c812468e2115?auto=format&fit=crop&w=400&q=80',
         cost: 18,
       },
+      {
+        name: 'Monstera Deliciosa',
+        image:
+          'https://images.unsplash.com/photo-1614594975525-e45190c55d0b?auto=format&fit=crop&w=400&q=80',
+        cost: 25,
+      },
+      {
+        name: 'Fiddle Leaf Fig',
+        image:
+          'https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?auto=format&fit=crop&w=400&q=80',
+        cost: 30,
+      },
+      {
+        name: 'Golden Pothos',
+        image:
+          'https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=400&q=80',
+        cost: 14,
+      },
     ],
   },
   {
@@ -46,6 +64,24 @@ const plantsArray = [
           'https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?auto=format&fit=crop&w=400&q=80',
         cost: 10,
       },
+      {
+        name: 'Chamomile',
+        image:
+          'https://images.unsplash.com/photo-1470058869958-2a77ade41c02?auto=format&fit=crop&w=400&q=80',
+        cost: 11,
+      },
+      {
+        name: 'Eucalyptus',
+        image:
+          'https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=400&q=80',
+        cost: 16,
+      },
+      {
+        name: 'Thyme',
+        image:
+          'https://images.unsplash.com/photo-1463320726281-696a485928c7?auto=format&fit=crop&w=400&q=80',
+        cost: 9,
+      },
     ],
   },
   {
@@ -62,6 +98,30 @@ const plantsArray = [
         image:
           'https://images.unsplash.com/photo-1520412099551-62b6bafeb5bb?auto=format&fit=crop&w=400&q=80',
         cost: 9,
+      },
+      {
+        name: 'Citronella',
+        image:
+          'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=400&q=80',
+        cost: 13,
+      },
+      {
+        name: 'Catnip',
+        image:
+          'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=400&q=80',
+        cost: 10,
+      },
+      {
+        name: 'Marigold',
+        image:
+          'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=400&q=80',
+        cost: 7,
+      },
+      {
+        name: 'Lemongrass',
+        image:
+          'https://images.unsplash.com/photo-1518495973542-4542c06a5843?auto=format&fit=crop&w=400&q=80',
+        cost: 12,
       },
     ],
   },
