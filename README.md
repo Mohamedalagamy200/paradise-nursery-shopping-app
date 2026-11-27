@@ -10,8 +10,8 @@ This is the Final Project for the Coursera course "Developing Front-End Apps wit
 
 ## Features
 - Landing page with the Paradise Nursery company name, a paragraph about the company, a background image, and a Get Started button linking to the product listing page.
-- Product listing page with at least 6 houseplants grouped into 3 categories (Air Purifying Plants, Aromatic Fragrant Plants, Low Maintenance Plants). Each plant card shows a thumbnail, name, and price, with an Add to Cart button that becomes disabled after the plant is added.
-- Header navigation bar on the product listing and shopping cart pages with links to Home, Plants, and Cart, plus a shopping cart icon showing the total number of items dynamically.
+- Product listing page with at least 6 houseplants grouped into 3 categories (Air Purifying Plants, Aromatic Fragrant Plants, Insect Repellent Plants). Each plant card shows a thumbnail, name, and price, with an Add to Cart button that becomes an inline quantity stepper once the plant is in the cart.
+- Header navigation bar on the product listing and shopping cart pages with links to Home, Plants, and Cart, plus a text button "Cart (n)" showing the total number of items dynamically.
 - Shopping cart page showing each plant type with its thumbnail, name, and unit price; increase and decrease quantity buttons; a delete button; the subtotal per plant type; the total number of plants; and the total cost.
 - Checkout button that shows a "Coming Soon" message and a Continue Shopping button that links back to the product listing page.
 - State management with Redux and Redux Toolkit (CartSlice) and reusable function components, JSX, props, and hooks.
