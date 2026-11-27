@@ -1,64 +1,82 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import ProductList from './ProductList.jsx';
 import CartItem from './CartItem.jsx';
 import AboutUs from './AboutUs.jsx';
 import { selectCartItems, selectTotalQuantity, selectTotalAmount } from './CartSlice.jsx';
+import { fmt } from './format.js';
 
 function App() {
   const [showProductList, setShowProductList] = useState(false);
   const [showCart, setShowCart] = useState(false);
   const [checkoutMessage, setCheckoutMessage] = useState('');
+  const [checkoutDone, setCheckoutDone] = useState(false);
   const cartItems = useSelector(selectCartItems);
   const totalQuantity = useSelector(selectTotalQuantity);
   const totalAmount = useSelector(selectTotalAmount);
 
+  // Scroll back to the top whenever the main view changes.
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [showProductList, showCart]);
+
+  const resetCheckout = () => {
+    setCheckoutMessage('');
+    setCheckoutDone(false);
+  };
+
   const handleGetStartedClick = () => {
     setShowProductList(true);
     setShowCart(false);
-    setCheckoutMessage('');
+    resetCheckout();
   };
 
   const handleHomeClick = () => {
     setShowProductList(false);
     setShowCart(false);
-    setCheckoutMessage('');
+    resetCheckout();
   };
 
   const handlePlantsClick = () => {
     setShowProductList(true);
     setShowCart(false);
-    setCheckoutMessage('');
+    resetCheckout();
   };
 
   const handleCartClick = () => {
     setShowCart(true);
     setShowProductList(false);
-    setCheckoutMessage('');
+    resetCheckout();
   };
 
   const handleContinueShopping = () => {
     setShowCart(false);
     setShowProductList(true);
-    setCheckoutMessage('');
+    resetCheckout();
   };
 
   const handleCheckout = () => {
     setCheckoutMessage('Checkout Coming Soon!');
+    setCheckoutDone(true);
   };
 
   return (
     <div className="app-container">
       <header className="header">
         <div className="header-content">
-          <h1 className="logo" onClick={handleHomeClick} style={{ cursor: 'pointer' }}>
+          <button
+            type="button"
+            className="logo"
+            onClick={handleHomeClick}
+            aria-label="Paradise Nursery — go to home"
+          >
             Paradise Nursery
-          </h1>
+          </button>
           {(showProductList || showCart) && (
             <nav className="nav">
               <button onClick={handleHomeClick}>Home</button>
               <button onClick={handlePlantsClick}>Plants</button>
-              <button onClick={handleCartClick} className="cart-button">
+              <button onClick={handleCartClick} className="cart-button" aria-live="polite">
                 Cart ({totalQuantity})
               </button>
             </nav>
@@ -90,7 +108,10 @@ function App() {
         <main className="cart-page">
           <h2>Your Shopping Cart</h2>
           {cartItems.length === 0 ? (
-            <p className="empty-cart">Your cart is empty. Add some plants to get started!</p>
+            <div className="empty-cart">
+              <p>Your cart is empty. Add some plants to get started!</p>
+              <button onClick={handlePlantsClick}>Browse Plants</button>
+            </div>
           ) : (
             <>
               <div className="cart-items">
@@ -100,11 +121,19 @@ function App() {
               </div>
               <div className="cart-summary">
                 <p>Total number of plants: {totalQuantity}</p>
-                <p>Total cost: ${totalAmount.toFixed(2)}</p>
-                <button className="checkout-btn" onClick={handleCheckout}>
+                <p>Total cost: {fmt(totalAmount)}</p>
+                <button
+                  className="checkout-btn"
+                  onClick={handleCheckout}
+                  disabled={checkoutDone}
+                >
                   Checkout
                 </button>
-                {checkoutMessage && <p className="checkout-message">{checkoutMessage}</p>}
+                {checkoutMessage && (
+                  <div className="checkout-notice" role="status">
+                    <p>{checkoutMessage}</p>
+                  </div>
+                )}
                 <button className="continue-btn" onClick={handleContinueShopping}>
                   Continue Shopping
                 </button>
@@ -113,6 +142,11 @@ function App() {
           )}
         </main>
       )}
+
+      <footer className="footer">
+        <p>Paradise Nursery — Bringing nature indoors.</p>
+        <p>&copy; 2026 Paradise Nursery. All rights reserved.</p>
+      </footer>
     </div>
   );
 }

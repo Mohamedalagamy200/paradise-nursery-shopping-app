@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { addItem, selectCartItems } from './CartSlice.jsx';
+import { addItem, updateQuantity, selectCartItems } from './CartSlice.jsx';
+import { fmt, handleImageError } from './format.js';
 
 const plantsArray = [
   {
@@ -135,7 +136,15 @@ function ProductList() {
     dispatch(addItem(plant));
   };
 
-  const isInCart = (plantName) => cartItems.some((item) => item.name === plantName);
+  const handleIncrement = (plantName, quantity) => {
+    dispatch(updateQuantity({ name: plantName, quantity: quantity + 1 }));
+  };
+
+  const handleDecrement = (plantName, quantity) => {
+    dispatch(updateQuantity({ name: plantName, quantity: quantity - 1 }));
+  };
+
+  const getCartItem = (plantName) => cartItems.find((item) => item.name === plantName);
 
   return (
     <main className="product-list-page">
@@ -145,16 +154,42 @@ function ProductList() {
         <section key={category.category} className="product-category">
           <h3>{category.category}</h3>
           <div className="product-grid">
-            {category.plants.map((plant) => (
-              <div key={plant.name} className="product-card">
-                <img src={plant.image} alt={plant.name} />
-                <h4>{plant.name}</h4>
-                <p className="price">${plant.cost}</p>
-                <button onClick={() => handleAddToCart(plant)} disabled={isInCart(plant.name)}>
-                  {isInCart(plant.name) ? 'Added to Cart' : 'Add to Cart'}
-                </button>
-              </div>
-            ))}
+            {category.plants.map((plant) => {
+              const cartItem = getCartItem(plant.name);
+              return (
+                <div key={plant.name} className="product-card">
+                  <img
+                    src={plant.image}
+                    alt={plant.name}
+                    loading="lazy"
+                    onError={handleImageError}
+                  />
+                  <h4>{plant.name}</h4>
+                  <p className="price">{fmt(plant.cost)}</p>
+                  {cartItem ? (
+                    <div className="card-stepper">
+                      <button
+                        type="button"
+                        onClick={() => handleDecrement(plant.name, cartItem.quantity)}
+                        aria-label={`Decrease quantity of ${plant.name}`}
+                      >
+                        −
+                      </button>
+                      <span aria-live="polite">{cartItem.quantity}</span>
+                      <button
+                        type="button"
+                        onClick={() => handleIncrement(plant.name, cartItem.quantity)}
+                        aria-label={`Increase quantity of ${plant.name}`}
+                      >
+                        +
+                      </button>
+                    </div>
+                  ) : (
+                    <button onClick={() => handleAddToCart(plant)}>Add to Cart</button>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </section>
       ))}
